@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'set'
 
 def part1(file_name)
   array1 = []
@@ -8,38 +9,41 @@ def part1(file_name)
     num1, num2 = line
                    .strip
                    .split("\s")
-    array1.push(num1.to_i)
-    array2.push(num2.to_i)
+                   .map!(&:to_i)
+    array1.push(num1)
+    array2.push(num2)
   end
 
   array1.sort!
   array2.sort!
 
   sum = 0
-  array1.each_index do |x|
-    sum += (array1[x] - array2[x]).abs
+
+  array1.zip(array2).each do |num1, num2|
+    sum += (num1 - num2).abs
   end
 
   sum
 end
 
 def part2(file_name)
-  array1 = []
-  array2 = []
+  set = Set.new
+  array = []
 
   File.foreach(file_name) do |line|
     num1, num2 = line
                    .strip
                    .split("\s")
-    array1.push(num1.to_i)
-    array2.push(num2.to_i)
+                   .map!(&:to_i)
+    set.add(num1)
+    array.push(num2)
   end
 
   sum = 0
-  array2_count = array2.tally
+  array_dict = array.tally
 
-  array1.each do |num|
-    sum += num * array2_count.fetch(num, 0)
+  set.each do |num|
+    sum += num * array_dict.fetch(num, 0)
   end
 
   sum
