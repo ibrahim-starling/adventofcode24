@@ -12,14 +12,14 @@ def part2(input_file)
       .scan(/mul\((\d+),(\d+)\)|(don't\(\))|(do\(\))/)
       .map(&:compact)
       .each do |array|
-        if array.first == "don't()" or array.first == "do()"
-          skip = array.first == "don't()" ? true : false
-        else
-          unless skip
-            sum+=array.map(&:to_i).inject(:*)
+          if array.first == "don't()" or array.first == "do()"
+            skip = array.first == "don't()" ? true : false
+          else
+            unless skip
+              sum += array.map(&:to_i).inject(:*)
+            end
           end
-        end
-  end
+      end
   sum
 end
 
