@@ -73,7 +73,7 @@ def part2(input_file)
   (0..arr.length - 1).each do |i|
     (0..arr[0].length - 1).each do |j|
       if arr[i][j] == '.'
-        new_array = Marshal.load(Marshal.dump(arr))
+        new_array = arr.map(&:clone)
         new_array[i][j] = '#'
         if stuck_in_loop?(new_array)
           cnt += 1
@@ -88,5 +88,5 @@ end
 # Part 1 - 0.006 Sec
 puts(Benchmark.realtime { part1('input.txt') })
 
-# Part 2 - 2.45 Minutes
+# Part 2 - 1.23 Minutes
 puts(Benchmark.realtime { part2('input.txt') })
