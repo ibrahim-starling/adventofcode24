@@ -1,5 +1,6 @@
 require 'matrix'
 require 'set'
+require 'benchmark'
 
 def in_bounds?(cur, arr)
   i, j = cur
@@ -83,5 +84,9 @@ def part2(input_file)
   cnt
 end
 
-p part1('input.txt')
-p part2('input.txt')
+
+# Part 1 - 0.006 Sec
+puts(Benchmark.realtime { part1('input.txt') })
+
+# Part 2 - 2.45 Minutes
+puts(Benchmark.realtime { part2('input.txt') })
